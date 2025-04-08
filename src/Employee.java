@@ -1,18 +1,33 @@
-public class Employee {
-    //Базовая сложность
-    private static int generator1 = 1;
+import java.util.Objects;
 
-    private final int id;
-    private final String fullName;
+public class Employee {
+    private String fullName;
     private int department;
     private int salary;
+    private static int idCounter = 0;
+    private int id;
 
-    public Employee(String fullName, int department, int salary) {
-        id = generator1++;
-        this.fullName = fullName;
+    public Employee(String nick, int department, int salary) {
+        this.fullName = nick;
         this.department = department;
         this.salary = salary;
+        this.id = ++idCounter;
+    }
 
+    public String getNick() {
+        return fullName;
+    }
+
+    public int getDepartment() {
+        return department;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setDepartment(int department) {
@@ -23,32 +38,20 @@ public class Employee {
         this.salary = salary;
     }
 
-    public static int getGenerator1() {
-        return generator1;
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return department == employee.department && salary == employee.salary && idCounter == employee.idCounter && Objects.equals(fullName, employee.fullName);
     }
 
-    public int getSalary() {
-        return salary;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public int getDepartment() {
-        return department;
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, department, salary, idCounter);
     }
 
     @Override
     public String toString() {
-        return "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", department=" + department +
-                ", salary=" + salary;
-    }
-
-    public int getId() {
-        return id;
-
+        return fullName + ", " + "отдел - " + department + ", " + "зарплата - " + salary + ", id = " + id + "\n";
     }
 }
