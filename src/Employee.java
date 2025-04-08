@@ -1,4 +1,5 @@
 public class Employee {
+    //Базовая сложность
     private static int generator1 = 1;
 
     private final int id;
